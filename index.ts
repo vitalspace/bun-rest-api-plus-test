@@ -54,7 +54,7 @@ const server = serve({
 
       await fs.writeFile("./users.json", JSON.stringify(newUsersJson));
 
-      return new Response(JSON.stringify(newUsersJson), {
+      return new Response(JSON.stringify({"message": "User data was updated correctly"}), {
         status: 200,
         headers: {
           "Content-Type": "application/json",
