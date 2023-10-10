@@ -1,4 +1,4 @@
-# crud
+# Bun Rest Api
 
 To install dependencies:
 
