@@ -25,17 +25,17 @@ const server = serve({
 
     if (pathname === "/api/createuser" && method === "POST") {
       const body = await req.json();
-      const userExists = users.map((user: any) => user.id === body.id);
+      const userExists = users.some((user: any) => user.id === body.id);
 
       if (userExists) {
         return new Response(
-          JSON.stringify({ message: "the user already exists" })
+          JSON.stringify({ message: "The user already exists" })
         );
       }
 
       const newUsersJson = users.concat(body);
       await fs.writeFile("./users.json", JSON.stringify(newUsersJson));
-      return new Response(JSON.stringify(newUsersJson), {
+      return new Response(JSON.stringify({ message: "The user was created successfully" }), {
         status: 200,
         headers: {
           "Content-Type": "application/json",
@@ -65,9 +65,7 @@ const server = serve({
     if (pathname === "/api/deleteuser" && method === "POST") {
       const body = await req.json();
 
-      const newUsersJson = users.filter(
-        (user: { id: any }) => user.id !== body.id
-      );
+      const newUsersJson = users.filter((user: any) => user.id !== body.id);
       await fs.writeFile("./users.json", JSON.stringify(newUsersJson));
 
       return new Response(JSON.stringify(newUsersJson), {
@@ -87,7 +85,4 @@ const server = serve({
 
 console.log("Server on http://localhost:" + server.port);
 
-
-export {
-    server
-}
+export { server };
