@@ -35,12 +35,15 @@ const server = serve({
 
       const newUsersJson = users.concat(body);
       await fs.writeFile("./users.json", JSON.stringify(newUsersJson));
-      return new Response(JSON.stringify({ message: "The user was created successfully" }), {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      return new Response(
+        JSON.stringify({ message: "The user was created successfully" }),
+        {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
     }
 
     if (pathname === "/api/updateuser" && method === "POST") {
@@ -54,26 +57,31 @@ const server = serve({
 
       await fs.writeFile("./users.json", JSON.stringify(newUsersJson));
 
-      return new Response(JSON.stringify({"message": "User data was updated correctly"}), {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      return new Response(
+        JSON.stringify({ message: "User data was updated correctly" }),
+        {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
     }
 
     if (pathname === "/api/deleteuser" && method === "POST") {
       const body = await req.json();
-
       const newUsersJson = users.filter((user: any) => user.id !== body.id);
       await fs.writeFile("./users.json", JSON.stringify(newUsersJson));
 
-      return new Response(JSON.stringify(newUsersJson), {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      return new Response(
+        JSON.stringify({ message: "The user was successfully deleted" }),
+        {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
     }
 
     return new Response("", {
